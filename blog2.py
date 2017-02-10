@@ -9,6 +9,9 @@ from google.appengine.ext import db
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
 
+def render_str(template, **params):
+    t = jinja_env.get_template(template)
+    return t.render(params)
 
 
 class Handler(webapp2.RequestHandler):
@@ -24,7 +27,7 @@ class Handler(webapp2.RequestHandler):
 
 class MainPage(Handler):
 	def get(self):
-		self.write("hello world!")
+		self.render("base.html")
 
 #blog stuff below
 
@@ -71,5 +74,5 @@ class NewPost(Handler):
 			error = "subject and content, please"
 			self.render("newpost.html", subject=subject, content=content, error=error)
 
-app = webapp2.WSGIApplication([('/', MainPage), ('/front.html', BlogFront), ('/permalink.html', PostPage), ('/newpost.html', NewPost)], debug=True)
+app = webapp2.WSGIApplication([('/', MainPage), ('/blog/?', BlogFront), ('/blog/([0-9]+)', PostPage), ('/newpost', NewPost)], debug=True)
 

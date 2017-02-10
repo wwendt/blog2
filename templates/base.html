@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/static/main.css">
+	<link type="text/css" rel="stylesheet" href="/Users/wwendt/Documents/blog2/static/main.css" />
 	<title>Wes Blog</title>
 </head>
 <body>
@@ -13,6 +13,13 @@
 		{% block content %}
 		{% endblock %}
 	</div>
+
+	<button id="goToPost">Go To Post Page</button>
+<script type="text/javascript">
+	document.getElementById("goToPost").onclick = function() {
+		location.href = "/newpost.html"
+	}
+</script>
 
 </body>
 </html>
